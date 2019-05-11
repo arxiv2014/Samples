@@ -1,9 +1,9 @@
 
-#####やること
+##### やること
 win8 の gitbash から　ubuntu へ　秘密鍵で　ｓｓｈログインします。
 おまけで、踏み台サーバー経由で目的サーバーへｓｓｈログインします（同じく秘密鍵使用）。
 ※ssh-agentを使います。gitbashのセッションに秘密鍵を覚えさせる。
-#####前提
+##### 前提
 既に、サーバーへはポート２２でssh接続可能とします。（パスワード認証）
 (※個人環境のサーバーでは既定のままでたぶんOK。)
 
@@ -71,16 +71,16 @@ chmod 700 .ssh
 ```
 設定完了。
 
-#####ssh で公開鍵を使ってサーバーにログイン
+##### ssh で公開鍵を使ってサーバーにログイン
 ```bash:win8
 ssh server1
 #config で指定した hostの略称
 ```
 
-####おまけ
-#####ここからはgitbashのセッションに秘密鍵を記憶させる方法です。
+#### おまけ
+##### ここからはgitbashのセッションに秘密鍵を記憶させる方法です。
 ここまででserver1へのssh秘密鍵ログインの設定をして来ました。server1を踏み台サーバーだとします。その先に目的のサーバーserver2があります。
-#####前提
+##### 前提
 server1を踏み台にしてserver2に同じユーザー名とパスワードでログインできるとします。更に、server2にもserver1の場合と同じ手順（※）で、同じ公開鍵を設置してあるとします。
 ※server2への接続はserver1を踏み台にするので全く同じではないですね。
 
@@ -105,10 +105,10 @@ ssh user1@server2
 
 
 
-##参照
-#####ssh-agent
+## 参照
+##### ssh-agent
 https://www.gfd-dennou.org/arch/morikawa/memo/ssh-agent.txt
-#####ssh-keygen
+##### ssh-keygen
 https://qiita.com/_kshara/items/fdf53a337fb9b9c4677b
-#####サーバーに設置する公開鍵とそのフォルダの権限設定
+##### サーバーに設置する公開鍵とそのフォルダの権限設定
 https://qiita.com/ir-yk/items/af8550fea92b5c5f7fca
