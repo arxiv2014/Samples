@@ -1,0 +1,4 @@
+File "stdin.py", line 5
+    return "stdin.py ok"
+    ^
+SyntaxError: 'return' outside function
