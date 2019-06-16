@@ -52,21 +52,22 @@ async def run_command(*args):
         return process.returncode,stdout.decode().strip(),stderr.decode().strip()
     except:
         return process.returncode  
-def main():
+def main(commands=[]):
     start = time.time()
-
-    if platform.system() == 'Windows':
-        # Commands to be executed on Windows
-        commands = [
-            ["python","read_stdin.py",None,"a\n東京都\nc"],["pwd"],["hostname"]
-        ]
-    else:
-        # Commands to be executed on Unix
-        commands = [
-            ['du', '-sh', '/var/tmp'],
-            ['hostname'],
-        ]
-
+    
+    if len(commands)==0:
+        if platform.system() == 'Windows':
+            # Commands to be executed on Windows
+            commands = [
+                ["python","read_stdin.py",None,"a\n東京都\nc"],["pwd"],["hostname"]
+            ]
+        else:
+            # Commands to be executed on Unix
+            commands = [
+                ['du', '-sh', '/var/tmp'],
+                ['hostname'],
+            ]
+    
     tasks = []
     for command in commands:
         tasks.append(run_command(*command))
@@ -78,14 +79,23 @@ def main():
     else:
         loop = asyncio.get_event_loop()
 
-    commands = asyncio.gather(*tasks)  # Unpack list using *
-    results = loop.run_until_complete(commands)
+    g_commands = asyncio.gather(*tasks)  # Unpack list using *
+    results = loop.run_until_complete(g_commands)
     
     loop.close()
+    print(f"commands: \n{commands}")
     print('Results:', results)
 
     end = time.time()
     rounded_end = ('{0:.4f}'.format(round(end-start,4)))
     print('Script ran in about', str(rounded_end), 'seconds')
     print(f"glbl:{glbl}")
-main()
+'''
+None 以降はstdinに書き込まれる。
+'''
+main(
+    [
+        ["python","read_stdin.py",None,"a\n東京都\nc"],
+        ["pwd"],
+        ["hostname"]
+            ])
